@@ -78,7 +78,7 @@ class ProductItem extends StatelessWidget {
               color: Color(0xFFf5487f),
             ),
             onPressed: () {
-              cart.addItem(product.id, product.title, product.price);
+              cart.addItem(product.id, product.title, product.price, product.imageUrl);
             },
           ),
 

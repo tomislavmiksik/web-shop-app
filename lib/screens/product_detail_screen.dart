@@ -21,17 +21,17 @@ class ProductDetailScreen extends StatelessWidget {
       backgroundColor: Color(0xFF1f306e),
       //extendBodyBehindAppBar: true,
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Color(0xFFf5487f),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add_shopping_cart),
+        child: const Icon(Icons.add_shopping_cart),
         onPressed: () {},
         backgroundColor: Color(0xFFf5487f),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(right: 50, left: 50),
+        padding: const EdgeInsets.only(right: 50, left: 50),
         child: Column(
           children: [
             Padding(
@@ -49,20 +49,27 @@ class ProductDetailScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     item.title,
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Text(
                     '\$${item.price.toString()}',
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 )
               ],
             ),
-            Text(item.description, style: TextStyle(color: Colors.white60, fontSize: 18), textAlign: TextAlign.left,)
+            Text(
+              item.description,
+              style: const TextStyle(
+                color: Colors.white60,
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.left,
+            )
           ],
         ),
       ),

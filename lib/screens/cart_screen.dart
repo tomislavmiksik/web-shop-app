@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_shop_app/providers/cart_provider.dart';
+import 'package:web_shop_app/widgets/cart_list_item.dart';
 
 class CartScreen extends StatelessWidget {
   static const routePath = 'cart-screen';
@@ -8,12 +9,13 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
+
     return Scaffold(
-      backgroundColor: Color(0xFF1f306e),
+      backgroundColor: const Color(0xFF1f306e),
       appBar: AppBar(
         actions: [
           Card(
-            color: Color(0xFF1f306e),
+            color: const Color(0xFF1f306e),
             shadowColor: Colors.transparent,
             //margin: EdgeInsets.all(15),
             child: Padding(
@@ -33,11 +35,11 @@ class CartScreen extends StatelessWidget {
                   ),
                   Chip(
                     label: Text(
-                      '\$${cart.totalAmount}',
-                      style: TextStyle(
+                      '\$${cart.totalAmount.toString()}',
+                      style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
-                    backgroundColor: Color(0xFFf5487f),
+                    backgroundColor: const Color(0xFFf5487f),
                   )
                 ],
               ),
@@ -48,11 +50,25 @@ class CartScreen extends StatelessWidget {
       //extendBodyBehindAppBar: true,
       body: Column(
         children: [
-          Container(
-              //child:
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                value: cart.items.values.toList()[i],
+                child: CartListItem(),
               ),
+              itemCount: cart.itemCount,
+            ),
+          ),
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.7,
+          //height: MediaQuery.of(context).size.height * 0.05,
+          child: ElevatedButton(
+            onPressed: () {},
+            child: Text('Order Now!'),
+          )),
     );
   }
 }
