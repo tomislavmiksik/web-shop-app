@@ -39,7 +39,7 @@ class CartScreen extends StatelessWidget {
                     padding: EdgeInsets.all(8),
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(5)),
-                      color: Color(0xFF52ADD1),
+                      color: Color(0xFF082032),
                     ),
                     child: Text(
                       '\$${cart.totalAmount.toStringAsFixed(2)}',
