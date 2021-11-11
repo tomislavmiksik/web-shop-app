@@ -11,11 +11,11 @@ class CartScreen extends StatelessWidget {
     final cart = Provider.of<Cart>(context);
 
     return Scaffold(
-      backgroundColor: const Color(0xFF1f306e),
+      backgroundColor: const Color(0x111213ff),
       appBar: AppBar(
         actions: [
           Card(
-            color: const Color(0xFF1f306e),
+            color: Colors.transparent,
             shadowColor: Colors.transparent,
             //margin: EdgeInsets.all(15),
             child: Padding(
@@ -33,14 +33,15 @@ class CartScreen extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  Chip(
-                    label: Text(
-                      '\$${cart.totalAmount.toString()}',
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(5)), color: Color(0xFF52ADD1),),
+                    child: Text(
+                      '\$${cart.totalAmount.toStringAsFixed(2)}',
                       style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-                    backgroundColor: const Color(0xFFf5487f),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -63,12 +64,13 @@ class CartScreen extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.7,
-          //height: MediaQuery.of(context).size.height * 0.05,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: Text('Order Now!'),
-          )),
+        width: MediaQuery.of(context).size.width * 0.7,
+        //height: MediaQuery.of(context).size.height * 0.05,
+        child: ElevatedButton(
+          onPressed: () {},
+          child: Text('Order Now!'),
+        ),
+      ),
     );
   }
 }

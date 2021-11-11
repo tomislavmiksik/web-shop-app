@@ -8,62 +8,83 @@ class CartListItem extends StatelessWidget {
     final cartItem = Provider.of<CartItem>(context);
     final cart = Provider.of<Cart>(context);
 
-    return Card(
-      color: Color(0xff273d8b),
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      child: Padding(
-        padding: EdgeInsets.all(8),
+    return Dismissible(
+      background: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        color: Color(0xFFDF6464),
+      ),
+      onDismissed: (DismissDirection direction) {
+        if (direction == DismissDirection.startToEnd) {
+          cart.removeItem(cartItem.id, cartItem.title, cartItem.price,
+              cartItem.imgUrl, cartItem.quantity);
+        } else if (direction == DismissDirection.endToStart) {
+          cart.addItem(
+              cartItem.id, cartItem.title, cartItem.price, cartItem.imgUrl);
+        }
+      },
+      key: UniqueKey(),
+      child: Card(
+        color: const Color(0xFF212224),
+        margin: const EdgeInsets.only(top: 10, bottom: 10),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
 
-        //tile containing the info
-        //
-        //
-        child: ListTile(
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage(cartItem.imgUrl),
-          ),
-          title: Text(
-            cartItem.title,
-            style: TextStyle(
-              fontSize: 18,
-            ),
-          ),
-          subtitle: Text(
-            '\$${(cartItem.price * cartItem.quantity).toString()}',
-            style: TextStyle(
-              fontSize: 15,
-              color: Color(0xFFf5487f),
-              fontWeight: FontWeight.bold
-            ),
-          ),
-
-          //row containing quantity info and add/remove buttons
+          //tile containing the info
           //
           //
-          trailing: SizedBox(
-            width: 150,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  onPressed: () => cart.removeItem(cartItem.id, cartItem.title,
-                      cartItem.price, cartItem.imgUrl, cartItem.quantity),
-                  icon: Icon(
-                    Icons.remove,
-                    color: Color(0xFFf5487f),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(cartItem.imgUrl),
+            ),
+            title: Text(
+              cartItem.title,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(
+              '\$${(cartItem.price * cartItem.quantity).toStringAsFixed(2)}',
+              style: const TextStyle(
+                  fontSize: 15,
+                  color: Color(0xFF66C1E6),
+                  fontWeight: FontWeight.bold),
+            ),
+
+            //row containing quantity info and add/remove buttons
+            //
+            //
+            trailing: SizedBox(
+              width: 150,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    onPressed: () => cart.removeItem(
+                        cartItem.id,
+                        cartItem.title,
+                        cartItem.price,
+                        cartItem.imgUrl,
+                        cartItem.quantity),
+                    icon: const Icon(
+                      Icons.remove,
+                      color: Color(0xFFDF6464),
+                    ),
+                    splashColor: Color(0xFFDF6464),
                   ),
-                ),
-                Text(
-                  cartItem.quantity.toString(),
-                ),
-                IconButton(
-                  onPressed: () => cart.addItem(cartItem.id, cartItem.title,
-                      cartItem.price, cartItem.imgUrl),
-                  icon: Icon(
-                    Icons.add,
-                    color: Color(0xFFf5487f),
+                  Text(
+                    cartItem.quantity.toString(),
                   ),
-                ),
-              ],
+                  IconButton(
+                    onPressed: () => cart.addItem(cartItem.id, cartItem.title,
+                        cartItem.price, cartItem.imgUrl),
+                    icon: const Icon(
+                      Icons.add,
+                      color: Color(0xFF66C1E6),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

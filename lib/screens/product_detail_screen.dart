@@ -18,17 +18,17 @@ class ProductDetailScreen extends StatelessWidget {
         Provider.of<ProductItemProvider>(context, listen: false).findById(id!);
 
     return Scaffold(
-      backgroundColor: Color(0xFF1f306e),
+      backgroundColor: Color(0x111213ff),
       //extendBodyBehindAppBar: true,
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Color(0xFFf5487f),
+          color: Color(0xFF52ADD1),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add_shopping_cart),
         onPressed: () {},
-        backgroundColor: Color(0xFFf5487f),
+        backgroundColor: Color(0xFF52ADD1),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(right: 50, left: 50),

@@ -23,7 +23,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF1f306e),
+      backgroundColor: Color(0x111213ff),
       appBar: AppBar(
         title: const Text('Web Shop'),
         actions: [
@@ -53,7 +53,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           Consumer<Cart>(
             builder: (_, cartData, ch) => Badge(
               value: cartData.itemCount.toString(),
-              color: Color(0xFFf5487f),
+              color: Color(0xFF52ADD1),
               child: ch!,
             ),
             child: IconButton(
@@ -61,7 +61,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               onPressed: () {
                 Navigator.of(context).pushNamed(CartScreen.routePath);
               },
-              splashColor: Color(0xFFf5487f),
+              splashColor: Color(0xFF52ADD1),
             ),
           ),
         ],

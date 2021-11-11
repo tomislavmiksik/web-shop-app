@@ -30,14 +30,14 @@ class MyApp extends StatelessWidget {
         title: 'MyShop',
         theme: theme.copyWith(
           colorScheme: theme.colorScheme.copyWith(
-              primary: Color(0xFFf5487f), secondary: Color(0xFF1f306e)),
-          backgroundColor: Color(0xFF1f306e),
-          appBarTheme: AppBarTheme(
+              primary: Color(0xFF52ADD1), secondary: Color(0xFF1f306e)),
+          backgroundColor: Color(0xFF264653),
+          appBarTheme: const AppBarTheme(
             color: Colors.transparent,
             shadowColor: Colors.transparent,
           ),
-          splashColor: Color(0xFFf5487f),
-          textTheme: TextTheme(
+          splashColor: const Color(0xFF52ADD1),
+          textTheme: const TextTheme(
             bodyText2: TextStyle(
               fontSize: 20,
             ),

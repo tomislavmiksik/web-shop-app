@@ -55,11 +55,11 @@ class ProductItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             child: IconButton(
               splashRadius: 25,
-              splashColor: Color(0xFFf5487f),
+              splashColor: Color(0xFF52ADD1),
               icon: Consumer<ProductProvider>(
                 builder: (ctx, product, _) => Icon(
                   product.isFavourite ? Icons.favorite : Icons.favorite_border,
-                  color: product.isFavourite ? Color(0xFFf5487f) : Colors.white,
+                  color: product.isFavourite ? Color(0xFF52ADD1) : Colors.white,
                 ),
                 //child: Text('Never changes'),
               ),
@@ -73,9 +73,9 @@ class ProductItem extends StatelessWidget {
           //
           //
           trailing: IconButton(
-            icon: Icon(
-              Icons.shopping_cart,
-              color: Color(0xFFf5487f),
+            icon: const Icon(
+              Icons.add_shopping_cart,
+              color: Color(0xFF52ADD1),
             ),
             onPressed: () {
               cart.addItem(product.id, product.title, product.price, product.imageUrl);
