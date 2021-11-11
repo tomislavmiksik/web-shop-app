@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:web_shop_app/providers/cart_provider.dart';
 import 'package:web_shop_app/providers/product_item_provider.dart';
+import 'package:web_shop_app/providers/product_provider.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const routePath = 'product-detail';
@@ -17,8 +19,10 @@ class ProductDetailScreen extends StatelessWidget {
     final item =
         Provider.of<ProductItemProvider>(context, listen: false).findById(id!);
 
+    final cart = Provider.of<Cart>(context, listen: false);
+
     return Scaffold(
-      backgroundColor: Color(0x111213ff),
+      backgroundColor: const Color(0x111213ff),
       //extendBodyBehindAppBar: true,
       appBar: AppBar(
         iconTheme: const IconThemeData(
@@ -27,8 +31,10 @@ class ProductDetailScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add_shopping_cart),
-        onPressed: () {},
-        backgroundColor: Color(0xFF52ADD1),
+        onPressed: () {
+          cart.addItem(item.id, item.title, item.price, item.imageUrl);
+        },
+        backgroundColor: const Color(0xFF52ADD1),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(right: 50, left: 50),
@@ -39,7 +45,14 @@ class ProductDetailScreen extends StatelessWidget {
               child: ClipRRect(
                 clipBehavior: Clip.hardEdge,
                 borderRadius: BorderRadius.circular(12),
-                child: Container(child: Image.network(item.imageUrl)),
+                child: SizedBox(
+                  child: Image.network(
+                    item.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
+                  height: 300,
+                  width: double.infinity,
+                ),
               ),
             ),
             Row(
@@ -62,6 +75,7 @@ class ProductDetailScreen extends StatelessWidget {
                 )
               ],
             ),
+            
             Text(
               item.description,
               style: const TextStyle(

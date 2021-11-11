@@ -55,11 +55,11 @@ class ProductItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             child: IconButton(
               splashRadius: 25,
-              splashColor: Color(0xFF52ADD1),
+              splashColor: const Color(0xFF52ADD1),
               icon: Consumer<ProductProvider>(
                 builder: (ctx, product, _) => Icon(
                   product.isFavourite ? Icons.favorite : Icons.favorite_border,
-                  color: product.isFavourite ? Color(0xFF52ADD1) : Colors.white,
+                  color: product.isFavourite ? const Color(0xFF52ADD1) : Colors.white,
                 ),
                 //child: Text('Never changes'),
               ),

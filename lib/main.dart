@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:web_shop_app/providers/cart_provider.dart';
+import 'package:web_shop_app/providers/orders_provider.dart';
 import 'package:web_shop_app/screens/cart_screen.dart';
+import 'package:web_shop_app/screens/orders_screen.dart';
+import 'package:web_shop_app/screens/tabs_screen.dart';
 import 'screens/products_overview_screen.dart';
 import 'screens/product_detail_screen.dart';
 import 'package:provider/provider.dart';
@@ -23,15 +26,18 @@ class MyApp extends StatelessWidget {
           create: (ctx) => ProductItemProvider(),
         ),
         ChangeNotifierProvider(
-          create:(ctx) => Cart(),
+          create: (ctx) => Cart(),
+        ),
+        ChangeNotifierProvider.value(
+          value: Orders(),
         ),
       ],
       child: MaterialApp(
         title: 'MyShop',
         theme: theme.copyWith(
           colorScheme: theme.colorScheme.copyWith(
-              primary: Color(0xFF52ADD1), secondary: Color(0xFF1f306e)),
-          backgroundColor: Color(0xFF264653),
+              primary: const Color(0xFF52ADD1), secondary: const Color(0xFF1f306e)),
+          backgroundColor: const Color(0xFF264653),
           appBarTheme: const AppBarTheme(
             color: Colors.transparent,
             shadowColor: Colors.transparent,
@@ -43,10 +49,12 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: ProductsOverviewScreen(),
+        initialRoute:'/',
         routes: {
+          '/': (ctx) => TabsScreen(),
           ProductDetailScreen.routePath: (ctx) => ProductDetailScreen(),
           CartScreen.routePath: (ctx) => CartScreen(),
+          OrdersScreen.routePath: (ctx) => OrdersScreen(),
         },
       ),
     );

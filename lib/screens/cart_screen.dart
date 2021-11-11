@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_shop_app/providers/cart_provider.dart';
+import 'package:web_shop_app/providers/orders_provider.dart';
 import 'package:web_shop_app/widgets/cart_list_item.dart';
+import '../providers/orders_provider.dart';
 
 class CartScreen extends StatelessWidget {
   static const routePath = 'cart-screen';
@@ -35,11 +37,16 @@ class CartScreen extends StatelessWidget {
                   ),
                   Container(
                     padding: EdgeInsets.all(8),
-                    decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(5)), color: Color(0xFF52ADD1),),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      color: Color(0xFF52ADD1),
+                    ),
                     child: Text(
                       '\$${cart.totalAmount.toStringAsFixed(2)}',
                       style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15),
                     ),
                   ),
                 ],
@@ -67,7 +74,11 @@ class CartScreen extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.7,
         //height: MediaQuery.of(context).size.height * 0.05,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Provider.of<Orders>(context, listen: false)
+                .addOrder(cart.items.values.toList(), cart.totalAmount);
+            cart.clearCart();
+          },
           child: Text('Order Now!'),
         ),
       ),

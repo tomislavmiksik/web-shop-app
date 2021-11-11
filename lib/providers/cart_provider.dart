@@ -23,7 +23,8 @@ class Cart with ChangeNotifier {
     return _items;
   }
 
-  void addItem(String prodId, String prodTitle, double prodPrice, String imageUrl) {
+  void addItem(
+      String prodId, String prodTitle, double prodPrice, String imageUrl) {
     if (_items.containsKey(prodTitle)) {
       _items.update(
         prodTitle,
@@ -49,10 +50,11 @@ class Cart with ChangeNotifier {
     }
   }
 
-  void removeItem(String prodId, String prodTitle, double prodPrice, String imageUrl, int quantity){
-    if(quantity <= 1){
-      _items.removeWhere((_,value) => value.title == prodTitle);
-    }else{
+  void removeItem(String prodId, String prodTitle, double prodPrice,
+      String imageUrl, int quantity) {
+    if (quantity <= 1) {
+      _items.removeWhere((_, value) => value.title == prodTitle);
+    } else {
       _items.update(
         prodTitle,
         (value) => CartItem(
@@ -76,5 +78,10 @@ class Cart with ChangeNotifier {
 
   int get itemCount {
     return _items == null ? 0 : _items.length;
+  }
+
+  void clearCart() {
+    _items = {};
+    notifyListeners();
   }
 }
