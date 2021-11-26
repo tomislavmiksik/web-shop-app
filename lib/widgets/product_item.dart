@@ -59,7 +59,9 @@ class ProductItem extends StatelessWidget {
               icon: Consumer<ProductProvider>(
                 builder: (ctx, product, _) => Icon(
                   product.isFavourite ? Icons.favorite : Icons.favorite_border,
-                  color: product.isFavourite ? const Color(0xFF52ADD1) : Colors.white,
+                  color: product.isFavourite
+                      ? const Color(0xFF52ADD1)
+                      : Colors.white,
                 ),
                 //child: Text('Never changes'),
               ),
@@ -78,7 +80,28 @@ class ProductItem extends StatelessWidget {
               color: Color(0xFF52ADD1),
             ),
             onPressed: () {
-              cart.addItem(product.id, product.title, product.price, product.imageUrl);
+              cart.addItem(
+                  product.id, product.title, product.price, product.imageUrl);
+
+              //establishing connection to the nearest scaffold
+              //
+              //
+              //Scaffold.of(context).showSnackBar(snackbar);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Color(0xFF082032),
+                  content: Text('Item added to cart'),
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    textColor: Color(0xFF52ADD1),
+                    onPressed: () {
+                      //cart.undoAddItem(product.title);
+                      cart.undoAddItem(cart.items[product.title] as CartItem);
+                    },
+                  ),
+                  duration: const Duration(seconds: 2),
+                ),
+              );
             },
           ),
 

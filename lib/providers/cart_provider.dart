@@ -68,6 +68,22 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
+  void undoAddItem(CartItem item) {
+    if (item.quantity <= 1) {
+      _items.removeWhere((key, value) => value.title == item.title);
+    } else {
+      _items.update(
+          item.title,
+          (value) => CartItem(
+              title: value.title,
+              id: value.id,
+              price: value.price,
+              quantity: value.quantity - 1,
+              imgUrl: value.imgUrl));
+    }
+    notifyListeners();
+  }
+
   double get totalAmount {
     double total = 0.0;
     _items.forEach((key, value) {

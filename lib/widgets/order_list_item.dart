@@ -10,19 +10,18 @@ class OrderListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        
-        child: Card(
-          margin: const EdgeInsets.only(top: 10, bottom: 10),
-          color: Colors.transparent,
-          child: Row(
-            children: [Text('\$${order.amount.toStringAsFixed(2)}')],
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        margin: const EdgeInsets.only(top: 10, bottom: 10),
+        color: Colors.transparent,
+        child: ListTile(
+          leading: Text('\#${order.id.toString()}'),
+          trailing: Text('\$${order.amount.toStringAsFixed(2)}'),
         ),
       ),
-      onLongPress: () {
+
+      /* onLongPress: () {
         showDialog(
           context: context,
           builder: (context) {
@@ -44,7 +43,7 @@ class OrderListItem extends StatelessWidget {
             );
           },
         );
-      },
+      }, */
     );
   }
 }

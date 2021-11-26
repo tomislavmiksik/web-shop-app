@@ -46,10 +46,10 @@ class ProductDetailScreen extends StatelessWidget {
                 clipBehavior: Clip.hardEdge,
                 borderRadius: BorderRadius.circular(12),
                 child: SizedBox(
-                  child: Image.network(
-                    item.imageUrl,
-                    fit: BoxFit.cover,
-                  ),
+                    child: Image.network(
+                      item.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
                   height: 300,
                   width: double.infinity,
                 ),

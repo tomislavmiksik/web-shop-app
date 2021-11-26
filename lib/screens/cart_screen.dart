@@ -70,16 +70,19 @@ class CartScreen extends StatelessWidget {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.7,
-        //height: MediaQuery.of(context).size.height * 0.05,
-        child: ElevatedButton(
-          onPressed: () {
-            Provider.of<Orders>(context, listen: false)
-                .addOrder(cart.items.values.toList(), cart.totalAmount);
-            cart.clearCart();
-          },
-          child: Text('Order Now!'),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.7,
+          height: MediaQuery.of(context).size.height * 0.05,
+          child: ElevatedButton(
+            onPressed: () {
+              Provider.of<Orders>(context, listen: false)
+                  .addOrder(cart.items.values.toList(), cart.totalAmount);
+              cart.clearCart();
+            },
+            child: const Text('Order Now!'),
+          ),
         ),
       ),
     );

@@ -1,0 +1,31 @@
+{
+  "id": 1,
+  "amount": 49.99,
+  "items": [
+    {
+      "id": 1,
+      "name": "Item 1",
+      "description": "Description 1",
+      "price": 49.99,
+      "imgUrl": "https://via.placeholder.com/150",
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "name": "Item 2",
+      "description": "Description 2",
+      "imgUrl": "http://placehold.it/100x100",
+      "price": 49.99,
+      "quantity": 1
+    },
+    {
+      "id": 3,
+      "name": "07-08 Chevrolet Suburban LT",
+      "description": "A great family van",
+      "price": 15000.99,
+      "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/7/73/07-08_Chevrolet_Suburban_LT.jpg",
+      "quantity": 2
+    }
+  ],
+  "dateTime": "2017-01-01T00:00:00.000Z"
+}

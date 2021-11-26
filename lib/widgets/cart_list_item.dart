@@ -9,6 +9,30 @@ class CartListItem extends StatelessWidget {
     final cart = Provider.of<Cart>(context);
 
     return Dismissible(
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            backgroundColor: Color(0xFF082032),
+            title: const Text('Are you sure?'),
+            content: const Text('Do you want to remove the item from the cart?'),
+            actions: [
+              MaterialButton(
+                child: const Text('Yes', style: TextStyle(color: Colors.white),),
+                onPressed: () {
+                  Navigator.of(ctx).pop(true);
+                },
+              ),
+              MaterialButton(
+                child: const Text('No', style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+              ),
+            ],
+          ),
+        );
+      },
       direction: DismissDirection.endToStart,
       background: Container(
         padding: const EdgeInsets.all(12),
