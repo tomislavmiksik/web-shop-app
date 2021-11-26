@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:web_shop_app/providers/product_item_provider.dart';
+import 'package:web_shop_app/widgets/product_item.dart';
+import 'package:web_shop_app/widgets/user_product_item.dart';
 
 class UserProductsScreen extends StatelessWidget {
   const UserProductsScreen({Key? key}) : super(key: key);
@@ -7,7 +11,10 @@ class UserProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productData = Provider.of<ProductItemProvider>(context);
+
     return Scaffold(
+      backgroundColor: const Color(0x111213ff),
       appBar: AppBar(
         title: const Text('Product overview'),
         actions: [
@@ -17,7 +24,21 @@ class UserProductsScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(padding: EdgeInsets.all(8),),
+      body: Padding(
+        padding: EdgeInsets.all(8),
+        child: ListView.builder(
+          itemBuilder: (ctx, i) => Column(
+            children: [
+              UserProductItem(product: productData.items[i]),
+              const Divider(
+                color: Colors.white,
+                thickness:1,
+              )
+            ],
+          ),
+          itemCount: productData.items.length,
+        ),
+      ),
     );
   }
 }

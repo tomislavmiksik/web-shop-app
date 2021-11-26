@@ -13,7 +13,7 @@ class CartListItem extends StatelessWidget {
         return showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
-            backgroundColor: Color(0xFF082032),
+            backgroundColor: const Color(0xFF082032),
             title: const Text('Are you sure?'),
             content: const Text('Do you want to remove the item from the cart?'),
             actions: [

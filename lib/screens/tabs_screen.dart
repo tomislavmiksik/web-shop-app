@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_shop_app/screens/orders_screen.dart';
 import 'package:web_shop_app/screens/products_overview_screen.dart';
+import 'package:web_shop_app/screens/user_products_screen.dart';
 import 'package:web_shop_app/widgets/product_item.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class _TabScreenState extends State<TabsScreen> {
     pages = [
       ProductsOverviewScreen(),
       OrdersScreen(),
+      UserProductsScreen(),
     ];
     super.initState();
   }
@@ -54,6 +56,10 @@ class _TabScreenState extends State<TabsScreen> {
               Icons.list,
             ),
             label: 'Orders',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_chart),
+            label: 'Product overview'
           ),
         ],
       ),
