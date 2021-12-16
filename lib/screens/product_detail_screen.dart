@@ -33,6 +33,21 @@ class ProductDetailScreen extends StatelessWidget {
         child: const Icon(Icons.add_shopping_cart),
         onPressed: () {
           cart.addItem(item.id, item.title, item.price, item.imageUrl);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: const Color(0xFF082032),
+              content: const Text('Item added to cart'),
+              action: SnackBarAction(
+                label: 'Undo',
+                textColor: const Color(0xFF52ADD1),
+                onPressed: () {
+                  //cart.undoAddItem(product.title);
+                  cart.undoAddItem(cart.items[item.title] as CartItem);
+                },
+              ),
+              duration: const Duration(seconds: 2),
+            ),
+          );
         },
         backgroundColor: const Color(0xFF52ADD1),
       ),
@@ -46,10 +61,10 @@ class ProductDetailScreen extends StatelessWidget {
                 clipBehavior: Clip.hardEdge,
                 borderRadius: BorderRadius.circular(12),
                 child: SizedBox(
-                    child: Image.network(
-                      item.imageUrl,
-                      fit: BoxFit.cover,
-                    ),
+                  child: Image.network(
+                    item.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                   height: 300,
                   width: double.infinity,
                 ),
@@ -75,7 +90,6 @@ class ProductDetailScreen extends StatelessWidget {
                 )
               ],
             ),
-            
             Text(
               item.description,
               style: const TextStyle(

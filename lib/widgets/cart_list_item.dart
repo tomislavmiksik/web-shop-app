@@ -51,7 +51,7 @@ class CartListItem extends StatelessWidget {
       },
       key: UniqueKey(),
       child: Card(
-        color: const Color(0xFF082032),
+        color: const Color(0x111213ff),
         margin: const EdgeInsets.only(top: 10, bottom: 10),
         child: Padding(
           padding: const EdgeInsets.all(8),

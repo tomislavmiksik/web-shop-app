@@ -14,8 +14,17 @@ class UserProductItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
-        leading: CircleAvatar(
+        /* leading: CircleAvatar(
           backgroundImage: NetworkImage(product.imageUrl),
+        ), */
+        leading: Container(
+          child: Image.network(product.imageUrl, fit: BoxFit.cover,),
+          clipBehavior: Clip.hardEdge,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+          ),
+          width: 50,
+          height: 50,
         ),
         title: Text(
           product.title,

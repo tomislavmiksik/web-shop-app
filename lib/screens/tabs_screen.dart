@@ -11,12 +11,12 @@ class TabsScreen extends StatefulWidget {
 
 class _TabScreenState extends State<TabsScreen> {
   late List<dynamic> pages;
-  int _selectedPageIndex = 0;
+  int _selectedPageIndex = 1;
 
   initState() {
     pages = [
-      ProductsOverviewScreen(),
       OrdersScreen(),
+      ProductsOverviewScreen(),
       UserProductsScreen(),
     ];
     super.initState();
@@ -47,19 +47,21 @@ class _TabScreenState extends State<TabsScreen> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(
+              Icons.list,
+            ),
+            label: 'Orders',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
               Icons.shopping_bag,
             ),
             label: 'Products',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.list,
+              Icons.add_chart,
             ),
-            label: 'Orders',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_chart),
-            label: 'Product overview'
+            label: 'Product overview',
           ),
         ],
       ),

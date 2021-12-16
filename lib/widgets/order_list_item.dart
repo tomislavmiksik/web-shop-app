@@ -18,10 +18,7 @@ class OrderListItem extends StatelessWidget {
         child: ListTile(
           leading: Text('\#${order.id.toString()}'),
           trailing: Text('\$${order.amount.toStringAsFixed(2)}'),
-        ),
-      ),
-
-      /* onLongPress: () {
+          onLongPress: () {
         showDialog(
           context: context,
           builder: (context) {
@@ -32,18 +29,20 @@ class OrderListItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
 
                 ),
-                backgroundColor: Color(0x111213ff),
+                backgroundColor: const Color(0x111213ff),
                 elevation: 50,
-                child: Container(
-                    child: ListView.builder(
+                child: ListView.builder(
                   itemBuilder: (ctx, i) => OrderListItemDetail(order.items[i]),
                   itemCount: order.items.length,
-                )),
+                ),
               ),
             );
           },
         );
-      }, */
+      }, 
+        ),
+        
+      ),
     );
   }
 }

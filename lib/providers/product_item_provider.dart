@@ -41,10 +41,10 @@ class ProductItemProvider with ChangeNotifier {
     // if(_showFavouritesOnly){
     //   return [..._items].where((element) => element.isFavourite).toList();
     // }
-      return [..._items];
+    return [..._items];
   }
-  
-  List<ProductProvider> get favItems{
+
+  List<ProductProvider> get favItems {
     return _items.where((element) => element.isFavourite).toList();
   }
 
@@ -64,8 +64,10 @@ class ProductItemProvider with ChangeNotifier {
   //   notifyListeners();
   // }
 
-
-  ProductProvider findById(String id){
-    return _items.firstWhere((element) => element.id == id);
+  ProductProvider findById(String id) {
+    return _items.firstWhere(
+      (element) => element.id == id,
+      orElse: () => ProductProvider(id: id, title: '', description: '', price: 0, imageUrl: ''),
+    );
   }
 }
