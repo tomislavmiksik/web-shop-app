@@ -48,11 +48,22 @@ class ProductItemProvider with ChangeNotifier {
     return _items.where((element) => element.isFavourite).toList();
   }
 
-  void addProduct() {
-    //_items.add(value);
+  void addProduct(ProductProvider product) {
+    final newProduct = ProductProvider(
+      id: (_items.length + 1).toString(),
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,
+    );
+    _items.add(newProduct);
     notifyListeners();
   }
 
+  void editProduct(ProductProvider product) {
+    
+    
+  }
   // var _showFavouritesOnly = false;
   //
   // void showFavouritesOnly() {
@@ -67,7 +78,8 @@ class ProductItemProvider with ChangeNotifier {
   ProductProvider findById(String id) {
     return _items.firstWhere(
       (element) => element.id == id,
-      orElse: () => ProductProvider(id: id, title: '', description: '', price: 0, imageUrl: ''),
+      orElse: () => ProductProvider(
+          id: id, title: '', description: '', price: 0, imageUrl: ''),
     );
   }
 }

@@ -41,11 +41,19 @@ class ProductItemProvider with ChangeNotifier {
     return [..._items];
   }
 
-  void addProduct() {
-    //_items.add(value);
+  void addProduct(ProductProvider product) {
+    final newProduct = ProductProvider(
+      id: (_items.length + 1).toString(),
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,
+    );
+    _items.add(newProduct);
     notifyListeners();
   }
-  ProductProvider findById(String id){
+
+  ProductProvider findById(String id) {
     return _items.firstWhere((element) => element.id == id);
   }
 }

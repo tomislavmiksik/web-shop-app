@@ -52,14 +52,15 @@ class ProductDetailScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF52ADD1),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(right: 50, left: 50),
+        //padding: const EdgeInsets.only(right: 50, left: 50),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
               child: ClipRRect(
                 clipBehavior: Clip.hardEdge,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(6),
                 child: SizedBox(
                   child: Image.network(
                     item.imageUrl,
