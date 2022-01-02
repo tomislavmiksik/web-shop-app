@@ -61,8 +61,20 @@ class ProductItemProvider with ChangeNotifier {
   }
 
   void editProduct(ProductProvider product) {
+    _items.firstWhere((element) => element.id == product.id).description = product.description;
+    _items.firstWhere((element) => element.id == product.id).title = product.title;
+    _items.firstWhere((element) => element.id == product.id).price = product.price;
+    _items.firstWhere((element) => element.id == product.id).isFavourite = product.isFavourite;
+    _items.firstWhere((element) => element.id == product.id).imageUrl = product.imageUrl;
+    notifyListeners();
+
     
-    
+  }
+
+
+  void deleteProduct(String id) {
+    _items.removeWhere((element) => element.id == id);
+    notifyListeners();
   }
   // var _showFavouritesOnly = false;
   //

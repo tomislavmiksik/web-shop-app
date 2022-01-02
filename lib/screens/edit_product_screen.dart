@@ -24,6 +24,56 @@ class _EditProductScreenState extends State<EditProductScreen> {
       price: 0,
       title: '',
       isFavourite: false);
+  var _isInit = true;
+  var _initValues = {
+    'title': '',
+    'description': '',
+    'price': '',
+    'imageUrl': '',
+  };
+
+  @override
+  void initState() {
+    _imgUrlController.addListener(_updateImageUrl);
+    super.initState();
+  }
+
+  void _updateImageUrl() {
+    if (!_imgUrlController.text.startsWith('http') &&
+        !_imgUrlController.text.startsWith('https')) {
+      return;
+    }
+    if (!_imgUrlController.text.endsWith('.png') &&
+        !_imgUrlController.text.endsWith('.jpg') &&
+        !_imgUrlController.text.endsWith('.jpeg')) {
+      return;
+    }
+    setState(() {});
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      final routeArgs =
+          ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+      final productId = routeArgs['id'];
+      if (productId != null) {
+        _editedProduct =
+            Provider.of<ProductItemProvider>(context, listen: false)
+                .findById(productId);
+        _initValues = {
+          'title': _editedProduct.title,
+          'description': _editedProduct.description,
+          'price': _editedProduct.price.toString(),
+          // 'imageUrl': _editedProduct.imageUrl,
+          'imageUrl': '',
+        };
+        _imgUrlController.text = _editedProduct.imageUrl;
+      }
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   void _submitForm() {
     final isValid = _form.currentState?.validate();
@@ -43,13 +93,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
+    /*  final routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     final id = routeArgs['id'];
-
-    ProductProvider product;
+ */
+    /*   ProductProvider product;
     product = Provider.of<ProductItemProvider>(context).findById(id!);
-
+ */
     return Scaffold(
       backgroundColor: const Color(0x111213ff),
       appBar: AppBar(
@@ -77,19 +127,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 clipBehavior: Clip.hardEdge,
                 borderRadius: BorderRadius.circular(6),
                 child: SizedBox(
-                  child:
-                      _imgUrlController.text.isEmpty && product.imageUrl.isEmpty
-                          ? Image.asset("assets/images/placeholder1.png")
-                          : _imgUrlController.text.isEmpty &&
-                                  product.imageUrl.isNotEmpty
-                              ? Image.network(
-                                  product.imageUrl,
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.network(
-                                  _imgUrlController.text,
-                                  fit: BoxFit.cover,
-                                ),
+                  child: _editedProduct.imageUrl.isNotEmpty
+                      ? Image.network(
+                          _editedProduct.imageUrl,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset("assets/images/placeholder1.png"),
                   height: 300,
                   width: double.infinity,
                 ),
@@ -98,7 +141,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
-                initialValue: product.title,
+                initialValue: _initValues['title'],
                 autocorrect: true,
                 decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
@@ -133,7 +176,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
-                initialValue: product.price.toStringAsFixed(2),
+                initialValue: _initValues['price'],
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
                     RegExp(r'^(\d+)?\.?\d{0,2}'),
@@ -199,7 +242,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 onEditingComplete: () {
                   //print(_imgUrlController.text);
                   setState(() {
-                    product.imageUrl = _imgUrlController.text;
+                    _editedProduct.imageUrl = _imgUrlController.text;
                   });
                 },
                 onSaved: (value) {
@@ -217,7 +260,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
-                initialValue: product.description,
+                initialValue: _initValues['description'],
                 maxLines: 3,
                 autocorrect: true,
                 keyboardType: TextInputType.multiline,
