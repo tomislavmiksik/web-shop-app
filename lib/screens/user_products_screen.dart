@@ -21,10 +21,10 @@ class UserProductsScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              print('p' + (productDataLenght + 1).toString());
+              //print('p' + (productDataLenght + 1).toString());
               Navigator.of(context)
                   .pushNamed(EditProductScreen.routePath, arguments: {
-                'id': 'p' + (productDataLenght + 1).toString(),
+                'id': '',
               });
             },
             icon: const Icon(Icons.add),

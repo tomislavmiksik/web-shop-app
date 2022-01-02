@@ -34,36 +34,44 @@ class _TabScreenState extends State<TabsScreen> {
     //
     //
     return Scaffold(
+      
       backgroundColor: Colors.transparent,
       body: pages[_selectedPageIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: _selectPage,
-        currentIndex: _selectedPageIndex,
-        unselectedLabelStyle: const TextStyle(color: Color(0xFF52ADD1)),
-        selectedItemColor: const Color(0xFF52ADD1),
-        unselectedItemColor: Colors.white,
-        backgroundColor: const Color(0xFF082032),
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.list,
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+        
+        clipBehavior: Clip.hardEdge,
+        child: BottomNavigationBar(
+          
+          onTap: _selectPage,
+          currentIndex: _selectedPageIndex,
+          unselectedLabelStyle: const TextStyle(color: Color(0xFF52ADD1)),
+          selectedItemColor: const Color(0xFF52ADD1),
+          unselectedItemColor: Colors.white,
+          backgroundColor: const Color(0xFF082032),
+          type: BottomNavigationBarType.fixed,
+
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.list,
+              ),
+              label: 'Orders',
             ),
-            label: 'Orders',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.shopping_bag,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.shopping_bag,
+              ),
+              label: 'Products',
             ),
-            label: 'Products',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add_chart,
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.add_chart,
+              ),
+              label: 'Product overview',
             ),
-            label: 'Product overview',
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,8 @@
+import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:web_shop_app/providers/product_provider.dart';
+import 'package:http/http.dart' as http;
 
 class ProductItemProvider with ChangeNotifier {
   List<ProductProvider> _items = [
@@ -48,44 +51,76 @@ class ProductItemProvider with ChangeNotifier {
     return _items.where((element) => element.isFavourite).toList();
   }
 
-  void addProduct(ProductProvider product) {
-    final newProduct = ProductProvider(
-      id: (_items.length + 1).toString(),
-      title: product.title,
-      description: product.description,
-      price: product.price,
-      imageUrl: product.imageUrl,
+  Future<void> addProduct(ProductProvider product) async {
+    final url = Uri.parse(
+        'https://web-shop-app-b1f03-default-rtdb.europe-west1.firebasedatabase.app/products.json');
+    return http
+        .post(url,
+            body: json.encode({
+              'title': product.title,
+              'description': product.description,
+              'imageUrl': product.imageUrl,
+              'price': product.price,
+              'isFavourite': product.isFavourite,
+            }))
+        .then((value) {
+      final newProduct = ProductProvider(
+        id: json.decode(value.body)['name'],
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl,
+      );
+      /* final patchUrl = Uri.parse(
+          'https://web-shop-app-b1f03-default-rtdb.europe-west1.firebasedatabase.app/products/${newProduct.id}.json');
+      http.patch(patchUrl,
+          body: json.encode({
+            'title': newProduct.title,
+            'description': newProduct.description,
+            'imageUrl': newProduct.imageUrl,
+            'price': newProduct.price,
+            'isFavourite': newProduct.isFavourite,
+            'id': newProduct.id,
+          })); */
+      _items.add(newProduct);
+      notifyListeners();
+    });
+  }
+
+  void editProduct(String id, ProductProvider newProduct) {
+    _items.forEach(
+      (element) {
+        print(json.encode(
+          {
+            'title': element.title,
+            'description': element.description,
+            'imageUrl': element.imageUrl,
+            'price': element.price,
+            'isFavourite': element.isFavourite,
+            //'id': newProduct.id,
+          },
+        ));
+      },
     );
-    _items.add(newProduct);
-    notifyListeners();
+    final prodIndex = _items.indexWhere((prod) => prod.id == id);
+    if (prodIndex >= 0) {
+      _items[prodIndex] = newProduct;
+      notifyListeners();
+    } else {
+      print('pusi kurac');
+    }
   }
-
-  void editProduct(ProductProvider product) {
-    _items.firstWhere((element) => element.id == product.id).description = product.description;
-    _items.firstWhere((element) => element.id == product.id).title = product.title;
-    _items.firstWhere((element) => element.id == product.id).price = product.price;
-    _items.firstWhere((element) => element.id == product.id).isFavourite = product.isFavourite;
-    _items.firstWhere((element) => element.id == product.id).imageUrl = product.imageUrl;
-    notifyListeners();
-
-    
-  }
-
 
   void deleteProduct(String id) {
     _items.removeWhere((element) => element.id == id);
+    final url = Uri.parse(
+        'https://web-shop-app-b1f03-default-rtdb.europe-west1.firebasedatabase.app/products.json');
+    http.delete(url,
+        body: json.encode({
+          'id': id,
+        }));
     notifyListeners();
   }
-  // var _showFavouritesOnly = false;
-  //
-  // void showFavouritesOnly() {
-  //   _showFavouritesOnly = true;
-  //   notifyListeners();
-  // }
-  // void showAll(){
-  //   _showFavouritesOnly = false;
-  //   notifyListeners();
-  // }
 
   ProductProvider findById(String id) {
     return _items.firstWhere(
